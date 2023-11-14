@@ -5,14 +5,20 @@
 #include <stdio.h> 
 #include <stdint.h> 
 #include "libschsat.h" 
+int magnetometer_turn_on(uint16_t num);
+int magnetometer_request_raw(uint16_t num, float *pRAW_dataX, float *pRAW_dataY, float *pRAW_dataZ);
+int magnetometer_turn_off(uint16_t num);
+
 int control ( )  // The main function of the program in which we call other functions 
 { 
+	
+	
 	int16_t mgn_result [ ]  =  { 0 , 0 , 0 , 0 } ;  // Initialize mgn_result 
 	uint16_t num =  1 ; 	// magnetometer number 
 	int i ; 
 	printf ( "Rnable magnetometer №%d \n " , num ) ; 
 	magnetometer_turn_on ( num ) ; 
-	sleep ( 1 ) ; 
+	Sleep ( 1 ) ; 
 	printf ( "Get RAW data from magnetometer \n " ) ; 
 	for  ( i =  0 ; i <  1000 ; i ++ ) 
 	{ 
