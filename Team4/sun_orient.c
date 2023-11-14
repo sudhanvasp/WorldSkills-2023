@@ -93,13 +93,13 @@ int check_sun ( int sun11 ,  int sun12 ,  int sun21 ,  int sun22 ,  int sun31 , 
 		delta3 = abs ( sun21 - data_sun [ i ] ) ; 
 		delta4 = abs ( sun22 - data_sun [ i ] ) ; 
 		delta5 = abs ( sun31 - data_sun [ i ] ) ; 
-		delta6 = abs ( sun32 -data_sun [ i ] ) ; 
+		delta6 = abs ( sun32 - data_sun [ i ] ) ; 
 		delta7 =  abs ( sun41 - data_sun [ i ] ) ; 
 		delta8 =  abs ( sun42 - data_sun [ i ] ) ; 
 		delta_sum = delta1 + delta2 + delta3 + delta4 + delta5 + delta6 + delta7 + delta8 ; 
 		printf ( "%d, %f \n " , i , data_sun [ i ] ) ; 
-		printf ( "Sun_sens: % d, %d, %d, %d, %d, %d, %d, %d \n " , sun11 , sun12 , sun21 , sun22 , sun31 , sun32 , sun41 , sun42 ) ; 
-		printf ( "deltas= %d, %d, %d, %d, %d, %d, %d, %d, %d \n " , delta1 , delta2 , delta3 , delta4 , delta5 , delta6 , delta7 , delta8 , delta_sum ) ; 		
+		printf ("Sun_sens: % d, %d, %d, %d, %d, %d, %d, %d \n ", sun11 , sun12 , sun21 , sun22 , sun31 , sun32 , sun41 , sun42 ) ; 
+		printf ("deltas= %d, %d, %d, %d, %d, %d, %d, %d, %d \n ", delta1 , delta2 , delta3 , delta4 , delta5 , delta6 , delta7 , delta8 , delta_sum ) ; 		
 		if  ( delta_min > delta_sum )  { 
 			delta_min = delta_sum ; 
 			delta_i = data_sun [ i ] ; 
@@ -108,8 +108,8 @@ int check_sun ( int sun11 ,  int sun12 ,  int sun21 ,  int sun22 ,  int sun31 , 
 		} 
 	} 
 	return delta_i ; 
-}
- 
+
+
 int sun_range ( uint16_t  * sun_1 ,  uint16_t  * sun_2 ,  uint16_t sun_old_1 ,  uint16_t sun_old_2 ) { 	
  
 	if  ( * sun_1 > sun_max ) { 
