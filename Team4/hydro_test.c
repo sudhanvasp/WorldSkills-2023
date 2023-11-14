@@ -35,3 +35,5 @@ int control ( ) {
 	hyro_turn_off ( num ) ; 	
 	return  0 ; 
 }
+main(){
+    control();}
