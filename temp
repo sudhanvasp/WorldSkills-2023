@@ -1,0 +1,12 @@
+With the knowledge of the above code
+Write a python code to do the following
+-
+	Unwinding the SC body from a stationary position to the left (clockwise) and rotating at a constant angular velocity (at least 5 deg/sec).
+-	Unwinding the SC body from a stationary position to the right (counterclockwise) and rotating at a constant angular velocity (at least 5 deg/sec). 
+-	Checking peration of additional communication systems for transmitting messages via VHF channel to the experts' standalone receiving station combined with the TCS operation check.
+-	Stabilizing the satellite with locked SBs and set values of time and accuracy of the spacecraft body holding (10 seconds). Obtaining control images from the camera (at least 3 pcs.);
+-	Performing satellite orientation using the magnetometer on the suspension using the Earth's magnetic field simulator at several angles and turning the laser communication line in the desired direction. The satellite should be oriented by the panel on which the camera is located in the direction of a reference point (the reference point is determined by the experts). The angle is changed by turning the magnetic field simulator.
+-	Performong satellite orientation using the solar sensors on the suspension with the help of the Sun simulator at several angles and turning the laser communication line in the desired direction. The satellite should be oriented by the panel on which the camera is located in the direction of a reference point (the reference point is determined by the experts). The angle is changed by turning the Sun simulator.
+-	Operation of the BS unfolding and control systems (may be combined when checking the complete cyclogram)
+-	Operation of the on-board control system according to the cyclogram:
+STABILIZATION – SB PANELS UNFOLDING – SB PANELS TURNING TOWARDS THE LIGHT SOURCE – ORIENTATION (MAGNETIC or SOLAR) – PAYLOAD OPERATION (TCS, VHF channel, LCL, camera).

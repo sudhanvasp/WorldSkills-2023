@@ -17,6 +17,37 @@ int setFlywheelSpeed(int currentSpeed, float angularVelocity, float goalAngularV
     return newSpeed;
 }
 
+
+
+void transmitTextAndCheckTCS(const char *text) {
+    const uint16_t txNum = 1;  // Assuming transceiver #1 is used
+    const uint16_t rxNum = 2;  // Assuming receiving station's transceiver #2
+    const uint16_t maxMessageSize = 256;  // Adjust the size based based on trials
+
+    // Check if the message size is within the allowed limit
+    if (strlen(text) > maxMessageSize) {
+        printf("Error: Message size exceeds the allowed limit.\n");
+        return;
+    }
+
+    // Convert the text message to uint8_t array (assuming ASCII characters)
+    const uint8_t *messageData = (const uint8_t *)text;
+
+    // Transmit the text message via VHF channel
+    int sendResult = transceiver_send(txNum, rxNum, messageData, strlen(text));
+
+    // Check the result of the transmission
+    if (sendResult == LSS_OK) {
+        printf("Text transmitted successfully via VHF channel.\n");
+    } else {
+        printf("Error: Failed to transmit text via VHF channel.\n");
+        return;
+    }
+
+
+    printf("TCS operation check completed.\n");
+}
+
 // Function to perform satellite unwinding and stabilization
 void performUnwindingAndStabilization(float goalAngularVelocity) {
     // Initialize all devices
@@ -77,17 +108,38 @@ void performUnwindingAndStabilization(float goalAngularVelocity) {
 }
 
 int main() {
+    // Perform tasks
+    const char *textMessage = "Hello, receiving station! This is a test message.";
+
     // Unwind to the left (clockwise)
     printf("Unwinding to the left...\n");
-    performUnwindingAndStabilization(5.0);
+    performUnwindingAndStabilization(7.0);
+
 
     // Unwind to the right (counterclockwise)
     printf("Unwinding to the right...\n");
-    performUnwindingAndStabilization(-5.0);
+    performUnwindingAndStabilization(-7.0);
 
-    // Stabilize and capture images
+
+    // Perform VHF transmission and TCS operation check
+    transmitTextAndCheckTCS(textMessage);
+
+
+    // Stabilize and begin capturing images
     printf("Stabilizing and capturing images...\n");
     performUnwindingAndStabilization(0.0);
+    const int stabilizationTime = 10;  // seconds
+    const int numImages = 5;
+
+    Sleep(stabilizationTime);
+
+    // Obtain control images from the camera
+    for (int i = 0; i < numImages; ++i) {
+        camera_take_photo(1);  // Assuming camera #1 is used
+        transmitter_transmit_photo(1);  //transmit it to the ground station
+        Sleep(500); //adjust as needed
+    }
+
 
     return 0;
 }
