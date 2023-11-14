@@ -18,7 +18,7 @@ int magnetometer_push_data_uhf();
 int magnetometer_request_raw(uint16_t num,float *pRAW_dataX,float *pRAW_dataY,float *pRAW_dataZ);
 int magnetometer_set_offset(uint16_t num,int16_t offset_X,int16_t offset_Y,int16_t offset_Z);
 int motor_request_speed(uint16_t num,float *pRPM);
-int motor_set_speed(uint16_t num,float RPM);
+int motor_set_speed ( uint16_t num , int16_t RPM , int16_t  * confirm ) ;
 int recieve_unican_message(const uint16_t address_from,const uint16_t msg_id,uint8_t *data,const uint16_t msg_size,const uint16_t timeout);
 int send_unican_message(const uint16_t address_to,const uint16_t msg_id,uint8_t *data,const uint16_t msg_size);
 int sunsensor_get_raw(uint16_t num,int32_t *angle);
