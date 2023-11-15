@@ -1,17 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-// Define structures for Block and Segment
+// Structure for a Block
 typedef struct {
     int id;
     int* segment_ids;
     int segment_count;
 } Block;
 
+// Structure for a Segment
 typedef struct {
     int id;
+    // Add any other properties as needed
 } Segment;
 
-// Define structure for the Block-Segment System
+// Structure for the Block-Segment System
 typedef struct {
     Block* blocks;
     int block_count;
@@ -19,15 +22,20 @@ typedef struct {
     int segment_count;
     Block* current_block;
     Segment* current_segment;
-    int is_unfolding;
 } BlockSegmentSystem;
 
 // Function to add a block to the system
 void add_block(BlockSegmentSystem* bs_system, int block_id, int* segment_ids, int segment_count) {
     bs_system->blocks = realloc(bs_system->blocks, (bs_system->block_count + 1) * sizeof(Block));
     bs_system->blocks[bs_system->block_count].id = block_id;
-    bs_system->blocks[bs_system->block_count].segment_ids = segment_ids;
+    bs_system->blocks[bs_system->block_count].segment_ids = malloc(segment_count * sizeof(int));
     bs_system->blocks[bs_system->block_count].segment_count = segment_count;
+
+    // Copy segment IDs
+    for (int i = 0; i < segment_count; i++) {
+        bs_system->blocks[bs_system->block_count].segment_ids[i] = segment_ids[i];
+    }
+
     bs_system->block_count++;
 }
 
@@ -35,6 +43,8 @@ void add_block(BlockSegmentSystem* bs_system, int block_id, int* segment_ids, in
 void add_segment(BlockSegmentSystem* bs_system, int segment_id) {
     bs_system->segments = realloc(bs_system->segments, (bs_system->segment_count + 1) * sizeof(Segment));
     bs_system->segments[bs_system->segment_count].id = segment_id;
+    // Add any other initialization logic for segments
+
     bs_system->segment_count++;
 }
 
@@ -64,7 +74,6 @@ int select_segment(BlockSegmentSystem* bs_system, int segment_id) {
 void unfold_block(BlockSegmentSystem* bs_system) {
     if (bs_system->current_block != NULL) {
         printf("Unfolding Block %d\n", bs_system->current_block->id);
-        bs_system->is_unfolding = 1;
         // Add logic for unfolding the block
     }
 }
@@ -95,19 +104,24 @@ void complete_cyclogram(BlockSegmentSystem* bs_system) {
 
 // Function to clean up allocated memory
 void cleanup(BlockSegmentSystem* bs_system) {
+    for (int i = 0; i < bs_system->block_count; i++) {
+        free(bs_system->blocks[i].segment_ids);
+    }
     free(bs_system->blocks);
     free(bs_system->segments);
 }
 
 int main() {
     // Initialize the Block-Segment System
-    BlockSegmentSystem bs_system = {NULL, 0, NULL, 0, NULL, NULL, 0};
+    BlockSegmentSystem bs_system = {NULL, 0, NULL, 0, NULL, NULL};
 
     // Add blocks and segments to the system
     int segment_ids_block1[] = {101, 102};
     add_block(&bs_system, 1, segment_ids_block1, 2);
+
     int segment_ids_block2[] = {201, 202};
     add_block(&bs_system, 2, segment_ids_block2, 2);
+
     add_segment(&bs_system, 101);
     add_segment(&bs_system, 102);
     add_segment(&bs_system, 201);
