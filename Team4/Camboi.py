@@ -8,7 +8,7 @@ mtr_num = 1
 hyr_num = 1
 mag_num = 1
 alpha_goal = 0
-
+#bala changed nothing here:)
 errora = 0
 Pa = 0
 Da = 0
